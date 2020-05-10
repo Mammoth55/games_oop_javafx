@@ -24,22 +24,12 @@ public class Logic3T {
         return result;
     }
 
-    public boolean isWinnerX() {
-        boolean rsl = this.fillBy(Figure3T::hasMarkX, 0,0, 1, 1)
-                || this.fillBy(Figure3T::hasMarkX, this.table.length - 1 , 0, -1, 1);
+    public boolean isWinner(Predicate<Figure3T> predicate) {
+        boolean rsl = this.fillBy(predicate, 0,0, 1, 1)
+                || this.fillBy(predicate, this.table.length - 1 , 0, -1, 1);
         for (int i = 0; i < this.table.length; i++) {
-                rsl = this.fillBy(Figure3T::hasMarkX, i, 0, 0, 1)
-                        || this.fillBy(Figure3T::hasMarkX, 0, i, 1, 0) || rsl;
-        }
-        return rsl;
-    }
-
-    public boolean isWinnerO() {
-        boolean rsl = this.fillBy(Figure3T::hasMarkO, 0,0, 1, 1)
-                || this.fillBy(Figure3T::hasMarkO, this.table.length - 1 , 0, -1, 1);
-        for (int i = 0; i < this.table.length; i++) {
-            rsl = this.fillBy(Figure3T::hasMarkO, i, 0, 0, 1)
-                    || this.fillBy(Figure3T::hasMarkO, 0, i, 1, 0) || rsl;
+                rsl = this.fillBy(predicate, i, 0, 0, 1)
+                        || this.fillBy(predicate, 0, i, 1, 0) || rsl;
         }
         return rsl;
     }
